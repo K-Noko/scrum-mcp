@@ -156,7 +156,8 @@ mcp-server/
 │   ├── index.ts          # MCP サーバーエントリ（stdio）
 │   ├── db/
 │   │   ├── bigquery.ts   # BQ クライアント・query() ヘルパー
-│   │   └── updateField.ts # フィールド更新 + 履歴書き込みヘルパー
+│   │   ├── updateField.ts # フィールド更新 + 履歴書き込みヘルパー
+│   │   └── validate.ts   # FK 存在チェックヘルパー（assertExists / assertAllExist）
 │   ├── tools/            # 1 ファイル 1 ツール
 │   └── types/schema.ts   # 全エンティティ型定義
 ├── seeds/seed.ts         # サンプルデータ投入
