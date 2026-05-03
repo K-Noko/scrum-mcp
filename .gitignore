@@ -1,0 +1,15 @@
+# 環境変数・認証情報
+.env
+*.json.key
+credentials.json
+
+# Node.js
+node_modules/
+dist/
+
+# ログ・一時ファイル
+*.log
+.DS_Store
+
+# サンプル出力
+sample/
