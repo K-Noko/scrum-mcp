@@ -1,0 +1,28 @@
+{
+  "SprintSummary": {
+    "description": "スプリントサマリー（タスク数・SP消化率・担当者別進捗）",
+    "props": {
+      "sprint": { "type": "object", "description": "スプリント情報（sprint_id, name, goal, start_date, end_date, status）" },
+      "summary": { "type": "object", "description": "集計値（total, done, in_progress, in_review, todo, cancelled, total_sp, done_sp）" },
+      "by_assignee": { "type": "object", "description": "担当者別集計（assignee_id → { total, done, sp_total, sp_done }）" },
+      "tasks": { "type": "array", "description": "タスク一覧（list_tasks または get_sprint_summary の tasks フィールド）" }
+    }
+  },
+  "BurndownChart": {
+    "description": "バーンダウンチャート（日別SP消化の折れ線グラフ）",
+    "props": {
+      "sprint_name": { "type": "string" },
+      "start_date": { "type": "string", "description": "YYYY-MM-DD" },
+      "end_date": { "type": "string", "description": "YYYY-MM-DD" },
+      "total_sp": { "type": "number" },
+      "daily_done": { "type": "array", "description": "{ date: string, sp_done: number }[] — get_burndown_data の daily_done フィールド" }
+    }
+  },
+  "TaskTable": {
+    "description": "フィルタ・ソート付きタスク一覧テーブル",
+    "props": {
+      "tasks": { "type": "array", "description": "タスク一覧（list_tasks または get_sprint_summary の tasks フィールド）" },
+      "title": { "type": "string", "description": "テーブルのタイトル（省略可）" }
+    }
+  }
+}
