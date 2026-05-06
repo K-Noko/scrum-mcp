@@ -5,7 +5,7 @@ import { fileURLToPath } from "url";
 import { execSync } from "child_process";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const COMPONENTS_DIR = resolve(__dirname, "../../../components");
+const COMPONENTS_DIR = resolve(__dirname, "../../components");
 
 export const buildArtifactSchema = z.object({
   component: z.string().describe("コンポーネント名（list_components で確認）例: SprintSummary"),
