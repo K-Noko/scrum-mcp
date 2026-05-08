@@ -31,6 +31,8 @@ import { listCommentsSchema, listComments } from "./tools/list_comments.js";
 import { getSprintSummarySchema, getSprintSummary } from "./tools/get_sprint_summary.js";
 import { getBurndownDataSchema, getBurndownData } from "./tools/get_burndown_data.js";
 import { deployPageSchema, deployPage } from "./tools/deploy_page.js";
+import { listComponentsSchema, listComponents } from "./tools/list_components.js";
+import { buildArtifactSchema, buildArtifact } from "./tools/build_artifact.js";
 
 const server = new McpServer({ name: "scrum-mcp", version: "0.2.0" });
 
@@ -84,6 +86,8 @@ reg("list_comments", "タスクのコメント一覧を取得する", listCommen
 reg("get_sprint_summary", "スプリントの集計サマリー（タスク数・SP消化率・担当者別）を取得する", getSprintSummarySchema, getSprintSummary);
 reg("get_burndown_data",  "バーンダウンチャート用の日別消化SPデータを取得する", getBurndownDataSchema, getBurndownData);
 reg("deploy_page",        "HTMLをGCSにデプロイして公開URLを返す", deployPageSchema, deployPage);
+reg("list_components",   "利用可能なReactコンポーネントとそのpropsスキーマを返す", listComponentsSchema, listComponents);
+reg("build_artifact",    "コンポーネント名とpropsを受け取り、自己完結HTMLを返す（deploy_pageに渡す前に使用）", buildArtifactSchema, buildArtifact);
 
 const transport = new StdioServerTransport();
 await server.connect(transport);
