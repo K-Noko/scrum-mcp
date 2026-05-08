@@ -1,28 +1,59 @@
 {
-  "SprintSummary": {
-    "description": "スプリントサマリー（タスク数・SP消化率・担当者別進捗）",
+  "SprintHeader": {
+    "description": "スプリント名・ゴール・期間を表示するヘッダー",
     "props": {
-      "sprint": { "type": "object", "description": "スプリント情報（sprint_id, name, goal, start_date, end_date, status）" },
-      "summary": { "type": "object", "description": "集計値（total, done, in_progress, in_review, todo, cancelled, total_sp, done_sp）" },
-      "by_assignee": { "type": "object", "description": "担当者別集計（assignee_id → { total, done, sp_total, sp_done }）" },
-      "tasks": { "type": "array", "description": "タスク一覧（list_tasks または get_sprint_summary の tasks フィールド）" }
+      "name": { "type": "string" },
+      "goal": { "type": "string", "description": "省略可" },
+      "start_date": { "type": "string", "description": "YYYY-MM-DD、省略可" },
+      "end_date": { "type": "string", "description": "YYYY-MM-DD、省略可" },
+      "status": { "type": "string", "description": "省略可" }
+    }
+  },
+  "KpiCards": {
+    "description": "任意のメトリクスをカード形式で並べる。Claudeがレポートに応じて表示する指標を選ぶ",
+    "props": {
+      "cards": {
+        "type": "array",
+        "description": "{ label: string, value: string | number, sub?: string }[] — 表示したい指標を自由に決めてよい"
+      }
+    }
+  },
+  "AssigneeStats": {
+    "description": "担当者別のタスク数・SP消化率を進捗バーで表示",
+    "props": {
+      "by_assignee": {
+        "type": "object",
+        "description": "assignee_id → { total, done, sp_total, sp_done } — get_sprint_summary の by_assignee フィールドをそのまま渡せる"
+      }
     }
   },
   "BurndownChart": {
-    "description": "バーンダウンチャート（日別SP消化の折れ線グラフ）",
+    "description": "日別SP消化の理想線・実績線バーンダウンチャート",
     "props": {
       "sprint_name": { "type": "string" },
       "start_date": { "type": "string", "description": "YYYY-MM-DD" },
       "end_date": { "type": "string", "description": "YYYY-MM-DD" },
       "total_sp": { "type": "number" },
-      "daily_done": { "type": "array", "description": "{ date: string, sp_done: number }[] — get_burndown_data の daily_done フィールド" }
+      "daily_done": {
+        "type": "array",
+        "description": "{ date: string, sp_done: number }[] — get_burndown_data の daily_done フィールド"
+      }
     }
   },
   "TaskTable": {
-    "description": "フィルタ・ソート付きタスク一覧テーブル",
+    "description": "ステータスフィルタ・優先度/期日/SPソート付きタスク一覧テーブル",
     "props": {
-      "tasks": { "type": "array", "description": "タスク一覧（list_tasks または get_sprint_summary の tasks フィールド）" },
+      "tasks": {
+        "type": "array",
+        "description": "タスク一覧（list_tasks または get_sprint_summary の tasks フィールド）"
+      },
       "title": { "type": "string", "description": "テーブルのタイトル（省略可）" }
+    }
+  },
+  "Markdown": {
+    "description": "Claudeが考察・所見・注釈などのテキストをレポートに挿入するためのブロック。見出し(#)・箇条書き(-)・強調(**)が使える",
+    "props": {
+      "content": { "type": "string", "description": "Markdown形式のテキスト" }
     }
   }
 }

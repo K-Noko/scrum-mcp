@@ -5,18 +5,24 @@ import { registry } from "./registry";
 
 declare global {
   interface Window {
-    __ARTIFACT__: { component: string; props: Record<string, unknown> };
+    __ARTIFACT__: { sections: Array<{ component: string; props: Record<string, unknown> }> };
   }
 }
 
-const { component, props } = window.__ARTIFACT__;
-const Component = registry[component];
+const { sections } = window.__ARTIFACT__;
 
-if (!Component) {
-  document.getElementById("root")!.innerHTML =
-    `<p class="text-red-500 p-4">Unknown component: ${component}</p>`;
-} else {
-  ReactDOM.createRoot(document.getElementById("root")!).render(
-    React.createElement(Component, props)
-  );
-}
+const elements = sections.map(({ component, props }, i) => {
+  const Component = registry[component];
+  if (!Component) {
+    return React.createElement(
+      "p",
+      { key: i, className: "text-red-500 p-4" },
+      `Unknown component: ${component}`
+    );
+  }
+  return React.createElement(Component, { key: i, ...props });
+});
+
+ReactDOM.createRoot(document.getElementById("root")!).render(
+  React.createElement("div", { className: "min-h-screen bg-gray-50 p-6 font-sans space-y-6" }, ...elements)
+);
